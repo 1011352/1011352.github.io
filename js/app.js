@@ -3,6 +3,8 @@ const label = document.getElementById("label");
 const score = document.getElementById("score");
 const featureExtractor = ml5.featureExtractor('MobileNet',{numLabels : 3}, modelLoaded)
 
+
+
 const image = document.getElementById('output')
 const fileButton = document.querySelector("#file")
 
@@ -107,6 +109,10 @@ function videoReady(){
 // }
 
 
+function challenge() {
+    console.log("Challenge time")
+    challenge1 = "dog"
+}
 
 function userImageUploaded(){
     console.log("The image is now visible in the DOM")
@@ -114,11 +120,12 @@ function userImageUploaded(){
         classifier.classify(image, (err, result) => {
             if (err) console.log(err)
             console.log(result)
-            label.innerText = result[0].label
-            speak(result[0].label)
-            scores++
+            label.innerText = `This is probably a ${result[0].label} (I'm ${Math.round(result[0].confidence * 100)}% confident) or a ${result[1].label} (I'm ${Math.round(result[1].confidence * 100)}% confident)`;
+            speak(`This is probably a ${result[0].label} (I'm ${Math.round(result[0].confidence * 100)}% confident) or a ${result[1].label} (I'm ${Math.round(result[1].confidence * 100)}% confident)`)
+            scores ++
             score.innerText = "Score = " + scores
             console.log(scores)
+            
         })
     }, 20)
     setTimeout(() => {
