@@ -1,11 +1,14 @@
 const video = document.getElementById("webcam");
 const label = document.getElementById("label");
+const score = document.getElementById("score");
 const featureExtractor = ml5.featureExtractor('MobileNet',{numLabels : 3}, modelLoaded)
 
 const image = document.getElementById('output')
 const fileButton = document.querySelector("#file")
 
 
+
+let scores = 0
 let synth = window.speechSynthesis
 function speak(text) {
     if (synth.speaking) {
@@ -113,6 +116,9 @@ function userImageUploaded(){
             console.log(result)
             label.innerText = result[0].label
             speak(result[0].label)
+            scores++
+            score.innerText = "Score = " + scores
+            console.log(scores)
         })
     }, 20)
     setTimeout(() => {
